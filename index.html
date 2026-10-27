@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Таблица умножения — тренажёр</title>
+<style>
+:root{--bg:#0b1020;--panel:#141c33;--panel2:#1b2744;--blue:#4f8cff;--cyan:#5ce1e6;--text:#f5f7ff;--muted:#a9b4d0;--green:#45d6a0;--red:#ff6b7a;--gold:#ffc857}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -20%,#243e78 0,#10182e 45%,var(--bg) 80%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+button,input{font:inherit}button{cursor:pointer;border:0;border-radius:13px;padding:12px 17px;font-weight:750;transition:.15s}button:hover{transform:translateY(-1px);filter:brightness(1.08)}button:focus-visible,input:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
+.primary{background:linear-gradient(135deg,var(--blue),#7657ee);color:white}.secondary{background:#263454;color:white;border:1px solid #3a4b70}.danger{background:#482738;color:#ffb9c2;border:1px solid #754052}.tiny{padding:8px 11px;font-size:.9rem}
+header{max-width:1100px;margin:auto;padding:22px 20px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.brand{font-weight:900;font-size:1.2rem;letter-spacing:.3px}.brand span{color:var(--cyan)}.userbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.user-pill{color:var(--muted);font-size:.92rem}
+main{max-width:1100px;margin:0 auto;padding:8px 20px 50px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 22px}.tab{background:transparent;color:var(--muted);border:1px solid #2c3959}.tab.active{background:#24385e;color:white;border-color:#4e77c4}
+.panel{background:linear-gradient(145deg,rgba(24,34,60,.97),rgba(17,25,45,.97));border:1px solid #2a385a;border-radius:24px;padding:clamp(18px,4vw,32px);box-shadow:0 18px 60px #0002}.hero{text-align:center;padding:clamp(28px,7vw,66px) 20px}.eyebrow{color:var(--cyan);font-size:.8rem;letter-spacing:2px;text-transform:uppercase;font-weight:800}.hero h1{font-size:clamp(2rem,6vw,4rem);line-height:1.05;margin:12px 0}.hero p{color:var(--muted);max-width:540px;margin:0 auto 26px;line-height:1.6}.start{font-size:1.15rem;padding:16px 42px;border-radius:16px;min-width:190px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}.stat{background:#111a30;border:1px solid #293858;border-radius:16px;padding:16px}.stat strong{display:block;font-size:1.6rem}.stat span{font-size:.86rem;color:var(--muted)}
+h2{margin:0 0 8px;font-size:1.55rem}h3{margin:0 0 7px}.sub{color:var(--muted);margin:0 0 22px;line-height:1.5}.ach-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px}.ach{border:1px solid #31466e;background:#111a30;border-radius:17px;padding:17px 12px;text-align:center;min-height:155px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}.ach .emoji{font-size:2.2rem;filter:grayscale(1);opacity:.45}.ach.locked{color:#7385a8}.ach.unlocked{border-color:#4e91ff;background:linear-gradient(145deg,#203e73,#172b4d);box-shadow:inset 0 0 24px #4285ff15}.ach.unlocked .emoji{filter:none;opacity:1}.ach small{color:var(--muted);line-height:1.35}.game-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;color:var(--muted)}.progress{height:8px;background:#263452;border-radius:99px;overflow:hidden;margin:15px 0 25px}.progress div{height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan));transition:width .2s}.question{font-size:clamp(2.6rem,10vw,5rem);font-weight:900;text-align:center;margin:18px 0 28px;letter-spacing:1px}.answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:600px;margin:auto}.answer{background:#202e4c;border:1px solid #3a4e75;color:white;font-size:1.4rem;padding:20px}.answer.correct{background:#164d42;border-color:var(--green)}.answer.wrong{background:#552936;border-color:var(--red)}.feedback{text-align:center;min-height:28px;margin:17px 0;color:var(--muted);font-weight:700}.game-bottom{display:flex;justify-content:center;margin-top:12px}.hidden{display:none!important}.form{max-width:420px;margin:auto}.field{display:grid;gap:7px;margin:15px 0}.field label{color:var(--muted);font-size:.92rem}.field input{width:100%;padding:13px 14px;background:#0d1528;color:white;border:1px solid #354567;border-radius:12px}.notice{background:#202e4b;border-radius:12px;padding:12px 14px;color:var(--muted);font-size:.9rem;line-height:1.5;margin-top:14px}.error{color:#ff9ca8;min-height:22px}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:480px}th,td{text-align:left;padding:12px;border-bottom:1px solid #2b3958}th{color:var(--muted);font-size:.85rem}td{font-size:.95rem}.grade{font-weight:900;color:var(--gold)}.empty{text-align:center;color:var(--muted);padding:25px}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}.muted{color:var(--muted)}footer{text-align:center;color:#7180a0;font-size:.8rem;padding:25px}
+@media(max-width:600px){header{padding:16px}.stats{grid-template-columns:1fr}.two-col{grid-template-columns:1fr}.hero{padding:35px 12px}.answers{gap:8px}.answer{padding:18px 8px}.userbar{width:100%;justify-content:space-between}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">✦ УМНО<span>ЖАЙ</span></div>
+  <div class="userbar">
+    <span id="userLabel" class="user-pill">Вы не вошли в аккаунт</span>
+    <button id="loginOpen" class="secondary tiny">Войти в аккаунт</button>
+    <button id="logoutBtn" class="danger tiny hidden">Выйти</button>
+  </div>
+</header>
+<main>
+  <nav class="tabs" aria-label="Разделы">
+    <button class="tab active" data-page="home">Главная</button>
+    <button class="tab" data-page="achievements">Ачивки</button>
+    <button class="tab" data-page="journal">Оценки / журнал</button>
+  </nav>
+
+  <section id="page-home" class="page">
+    <div id="homeHero" class="panel hero">
+      <div class="eyebrow">Тренажёр таблицы умножения</div>
+      <h1>Умножай.<br><span style="color:var(--cyan)">Прокачивайся.</span></h1>
+      <p>Решай примеры, собирай достижения и следи за своим прогрессом. Игра не заканчивается сама — ты решаешь, когда остановиться.</p>
+      <button class="primary start" id="startBtn">▶ Старт</button>
+      <div class="stats">
+        <div class="stat"><strong id="totalStat">0</strong><span>Решено примеров</span></div>
+        <div class="stat"><strong id="accuracyStat">—</strong><span>Точность</span></div>
+        <div class="stat"><strong id="sessionsStat">0</strong><span>Завершено игр</span></div>
+      </div>
+    </div>
+    <div id="gamePanel" class="panel hidden">
+      <div class="game-top"><span id="roundLabel">Игра продолжается</span><span>Верно: <b id="correctNow">0</b> · Ошибки: <b id="wrongNow">0</b></span></div>
+      <div class="progress"><div id="gameProgress"></div></div>
+      <div class="question" id="question">7 × 8 = ?</div>
+      <div class="answers" id="answers"></div>
+      <div class="feedback" id="feedback" aria-live="polite">Выбери ответ — следующий пример появится автоматически.</div>
+      <div class="game-bottom"><button id="finishBtn" class="danger">Закончить игру</button></div>
+    </div>
+    <div class="panel" style="margin-top:18px">
+      <h2>Твои достижения</h2><p class="sub">Сначала значки синие и приглушённые. Выполняй условия — и они засияют!</p>
+      <div class="ach-grid" id="homeAchievements"></div>
+    </div>
+  </section>
+
+  <section id="page-achievements" class="page hidden">
+    <div class="panel"><h2>🏆 Коллекция ачивок</h2><p class="sub">Каждая разблокированная ачивка — повод гордиться собой. Собери все значки!</p><div class="ach-grid" id="allAchievements"></div></div>
+  </section>
+
+  <section id="page-journal" class="page hidden">
+    <div class="panel">
+      <h2>📘 Оценки / журнал</h2>
+      <p class="sub">После каждой завершённой игры здесь сохраняется результат. Оценки можно перенести в школьный журнал.</p>
+      <div class="two-col" style="margin-bottom:18px">
+        <div class="stat"><strong id="journalGrade">—</strong><span>Последняя оценка</span></div>
+        <div class="stat"><strong id="journalGames">0</strong><span>Всего завершено игр</span></div>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>Дата и время</th><th>Примеров</th><th>Верно</th><th>Ошибки</th><th>Точность</th><th>Оценка</th></tr></thead><tbody id="journalRows"></tbody></table></div>
+      <div id="journalEmpty" class="empty">Пока нет оценок. Сыграй первую игру!</div>
+      <button id="exportBtn" class="secondary" style="margin-top:16px">Скачать журнал CSV</button>
+      <button id="clearBtn" class="danger tiny" style="margin-top:16px;float:right">Очистить прогресс</button>
+    </div>
+  </section>
+
+  <section id="page-login" class="page hidden">
+    <div class="panel form">
+      <h2>Вход в аккаунт</h2><p class="sub">Введи свой логин и пароль, чтобы открыть личный прогресс.</p>
+      <form id="loginForm">
+        <div class="field"><label for="login">Логин</label><input id="login" autocomplete="username" required placeholder="Например, 28"></div>
+        <div class="field"><label for="password">Пароль</label><input id="password" type="password" autocomplete="current-password" required placeholder="Пароль"></div>
+        <div id="loginError" class="error" aria-live="polite"></div>
+        <button class="primary" type="submit" style="width:100%">Войти</button>
+        <button class="secondary" type="button" id="cancelLogin" style="width:100%;margin-top:8px">Назад</button>
+      </form>
+      <div class="notice">Сеанс сохраняется на этом устройстве, пока ты не нажмёшь «Выйти». Прогресс хранится в памяти браузера этого устройства.</div>
+    </div>
+  </section>
+</main>
+<footer>УМНОЖАЙ · Тренируйся в своём темпе</footer>
+<script>
+/* Для реального использования с несколькими учениками нужна серверная авторизация.
+   В этом автономном HTML пароли находятся в исходном коде и не являются защищёнными. */
+const ACCOUNTS = {
+  "28":"03032018",
+  "26":"02082012",
+  "67":"Ваза0406",
+  "69":"4607889"
+};
+const ACHIEVEMENTS = [
+ {id:"first",emoji:"🚀",name:"Первый шаг",desc:"Реши 1 пример",goal:1},
+ {id:"ten",emoji:"🔟",name:"Разминка",desc:"Реши 10 примеров",goal:10},
+ {id:"50",emoji:"🌟",name:"Уже 50!",desc:"Реши 50 примеров",goal:50},
+ {id:"100",emoji:"💯",name:"Сотня",desc:"Реши 100 примеров",goal:100},
+ {id:"200",emoji:"🔥",name:"Двести!",desc:"Реши 200 примеров",goal:200},
+ {id:"500",emoji:"⚡",name:"Молния",desc:"Реши 500 примеров",goal:500},
+ {id:"1000",emoji:"👑",name:"Мастер умножения",desc:"Реши 1000 примеров",goal:1000},
+ {id:"perfect10",emoji:"🎯",name:"Без промахов",desc:"10 правильных ответов подряд",special:"streak",goal:10},
+ {id:"games5",emoji:"🎮",name:"Постоянство",desc:"Заверши 5 игр",special:"games",goal:5},
+ {id:"games20",emoji:"🏅",name:"Настойчивость",desc:"Заверши 20 игр",special:"games",goal:20},
+ {id:"accuracy90",emoji:"💎",name:"Точность",desc:"Точность не ниже 90% на 50+ примерах",special:"accuracy",goal:90}
+];
+const $ = id => document.getElementById(id);
+let activeUser = localStorage.getItem("umnozhai_active_user") || "";
+let state = null, game = null;
+function freshState(){return {total:0,correct:0,wrong:0,sessions:0,streak:0,bestStreak:0,history:[],unlocked:[]};}
+function loadState(){try{return JSON.parse(localStorage.getItem("umnozhai_data_"+activeUser))||freshState()}catch{return freshState()}}
+function saveState(){if(activeUser&&state)localStorage.setItem("umnozhai_data_"+activeUser,JSON.stringify(state))}
+function setPage(name){document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));$("page-"+name).classList.remove("hidden");document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.page===name));if(name==="login")document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));}
+function requireLogin(){if(!activeUser){setPage("login");return false}return true}
+function login(user){activeUser=user;localStorage.setItem("umnozhai_active_user",user);state=loadState();updateUI();setPage("home")}
+function logout(){saveState();activeUser="";state=null;localStorage.removeItem("umnozhai_active_user");game=null;$("gamePanel").classList.add("hidden");$("homeHero").classList.remove("hidden");updateUI();setPage("home")}
+function accuracy(){return state.total?Math.round(state.correct/state.total*100):null}
+function gradeFor(acc,n){if(!n)return "—";if(acc>=95)return "5";if(acc>=80)return "4";if(acc>=60)return "3";return "2"}
+function isUnlocked(a){if(state.unlocked.includes(a.id))return true;let ok=false;if(a.special==="streak")ok=state.bestStreak>=a.goal;else if(a.special==="games")ok=state.sessions>=a.goal;else if(a.special==="accuracy")ok=state.total>=50&&accuracy()>=a.goal;else ok=state.total>=a.goal;if(ok){state.unlocked.push(a.id);saveState()}return ok}
+function achievementCard(a){const unlocked=isUnlocked(a);return `<div class="ach ${unlocked?"unlocked":"locked"}"><div class="emoji">${a.emoji}</div><strong>${a.name}</strong><small>${a.desc}</small><small>${unlocked?"✓ Получено":"🔒 Ещё впереди"}</small></div>`}
+function renderAchievements(){$("homeAchievements").innerHTML=ACHIEVEMENTS.slice(0,6).map(achievementCard).join("");$("allAchievements").innerHTML=ACHIEVEMENTS.map(achievementCard).join("")}
+function updateUI(){
+ const logged=!!activeUser;$("userLabel").textContent=logged?"Аккаунт: "+activeUser:"Вы не вошли в аккаунт";$("loginOpen").classList.toggle("hidden",logged);$("logoutBtn").classList.toggle("hidden",!logged);
+ if(!logged){["totalStat","sessionsStat"].forEach(id=>$(id).textContent="0");$("accuracyStat").textContent="—";renderLoggedOutAchievements();return}
+ $("totalStat").textContent=state.total;$("sessionsStat").textContent=state.sessions;$("accuracyStat").textContent=accuracy()===null?"—":accuracy()+"%";
+ $("journalGrade").textContent=state.history.length?state.history[state.history.length-1].grade:"—";$("journalGames").textContent=state.sessions;
+ $("journalRows").innerHTML=state.history.slice().reverse().map(h=>`<tr><td>${h.date}</td><td>${h.total}</td><td>${h.correct}</td><td>${h.wrong}</td><td>${h.accuracy}%</td><td class="grade">${h.grade}</td></tr>`).join("");
+ $("journalEmpty").classList.toggle("hidden",state.history.length>0);renderAchievements();saveState();
+}
+function renderLoggedOutAchievements(){$("homeAchievements").innerHTML='<div class="empty">Войди в аккаунт, чтобы сохранять достижения.</div>';$("allAchievements").innerHTML='<div class="empty">Войди в аккаунт, чтобы увидеть свою коллекцию.</div>';$("journalRows").innerHTML="";$("journalEmpty").classList.remove("hidden");$("journalGrade").textContent="—";$("journalGames").textContent="0"}
+function startGame(){if(!requireLogin())return;game={total:0,correct:0,wrong:0,runCorrect:0,answered:false};$("homeHero").classList.add("hidden");$("gamePanel").classList.remove("hidden");$("feedback").textContent="Выбери ответ — следующий пример появится автоматически.";nextQuestion()}
+function nextQuestion(){
+ if(!game)return;game.answered=false;
+ const a=1+Math.floor(Math.random()*10),b=1+Math.floor(Math.random()*10);game.answer=a*b;game.a=a;game.b=b;
+ $("question").textContent=`${a} × ${b} = ?`;$("correctNow").textContent=game.correct;$("wrongNow").textContent=game.wrong;
+ $("roundLabel").textContent=`Пример ${game.total+1} · игра без конца`;$("gameProgress").style.width=(game.total%10+1)*10+"%";
+ let options=new Set([game.answer]);while(options.size<4){let n=Math.random()<.55?Math.round(game.answer+(Math.random()*12-6)):1+Math.floor(Math.random()*100);if(n>=0&&n!==game.answer)options.add(n)}
+ const arr=[...options].sort(()=>Math.random()-.5);$("answers").innerHTML=arr.map(n=>`<button class="answer" data-value="${n}">${n}</button>`).join("");
+ $("answers").querySelectorAll("button").forEach(btn=>btn.addEventListener("click",()=>answerQuestion(Number(btn.dataset.value),btn)));
+}
+function answerQuestion(value,btn){if(!game||game.answered)return;game.answered=true;game.total++;state.total++;
+ const buttons=[...$("answers").querySelectorAll("button")];buttons.forEach(b=>b.disabled=true);
+ if(value===game.answer){game.correct++;state.correct++;state.streak++;state.bestStreak=Math.max(state.bestStreak,state.streak);game.runCorrect++;btn.classList.add("correct");$("feedback").textContent="Верно! Отлично ✨";$("feedback").style.color="var(--green)"}
+ else{game.wrong++;state.wrong++;state.streak=0;btn.classList.add("wrong");const right=buttons.find(b=>Number(b.dataset.value)===game.answer);if(right)right.classList.add("correct");$("feedback").textContent=`Не совсем. Правильный ответ: ${game.answer}. Идём дальше!`;$("feedback").style.color="var(--red)"}
+ $("correctNow").textContent=game.correct;$("wrongNow").textContent=game.wrong;renderAchievements();saveState();setTimeout(()=>{if(game)nextQuestion()},650)
+}
+function finishGame(){if(!game)return;const g=game;game=null;state.sessions++;const acc=g.total?Math.round(g.correct/g.total*100):0;const grade=gradeFor(acc,g.total);state.history.push({date:new Date().toLocaleString("ru-RU"),total:g.total,correct:g.correct,wrong:g.wrong,accuracy:acc,grade});saveState();$("gamePanel").classList.add("hidden");$("homeHero").classList.remove("hidden");updateUI();setPage("journal");alert(`Игра завершена!\nПримеров: ${g.total}\nВерно: ${g.correct}\nОшибок: ${g.wrong}\nТочность: ${acc}%\nОценка: ${grade}`)}
+document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{if(t.dataset.page==="journal"||t.dataset.page==="achievements"){if(!requireLogin())return}setPage(t.dataset.page)}));
+$("loginOpen").addEventListener("click",()=>{setPage("login");$("loginError").textContent=""});
+$("cancelLogin").addEventListener("click",()=>setPage("home"));
+$("loginForm").addEventListener("submit",e=>{e.preventDefault();const u=$("login").value.trim(),p=$("password").value;if(ACCOUNTS[u]&&ACCOUNTS[u]===p){login(u);$("password").value="";$("loginError").textContent=""}else $("loginError").textContent="Неверный логин или пароль."});
+$("logoutBtn").addEventListener("click",logout);$("startBtn").addEventListener("click",startGame);$("finishBtn").addEventListener("click",finishGame);
+$("exportBtn").addEventListener("click",()=>{if(!requireLogin())return;const rows=[["Дата и время","Примеров","Верно","Ошибки","Точность","Оценка"],...state.history.map(h=>[h.date,h.total,h.correct,h.wrong,h.accuracy+"%",h.grade])];const csv="\uFEFF"+rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(";")).join("\r\n");const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="zhurnal_"+activeUser+".csv";a.click();URL.revokeObjectURL(url)});
+$("clearBtn").addEventListener("click",()=>{if(!requireLogin())return;if(confirm("Точно очистить весь прогресс и оценки этого аккаунта? Это нельзя отменить.")){state=freshState();saveState();updateUI()}});
+if(activeUser&&ACCOUNTS[activeUser]){state=loadState()}else{activeUser="";localStorage.removeItem("umnozhai_active_user")}
+updateUI();
+</script>
+</body>
+</html>
